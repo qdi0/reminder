@@ -10,7 +10,6 @@ export default function CheckButton() {
       value="check"
       selected={selected}
       onChange={() => {
-
         setSelected(!selected);
       }}
       className="checkbutton"
