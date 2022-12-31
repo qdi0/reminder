@@ -31,7 +31,6 @@ const Reminder = () =>{
     })
   }
 
-  // const titles = ['title','title2','title3','title3','title4'];
 
   return(
     <>

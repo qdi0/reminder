@@ -6,7 +6,7 @@ const AddTask = ({isSendPost}) =>{
     <div className="task">
       <input className="taskName" type="text" defaultValue='' placeholder="test"/>
       <input className="taskDate" type="date" defaultValue="1991-01-01"/>
-      <button onClick={()=>{ console.log(isSendPost)}}>タスクの追加</button>
+      <button onClick={()=>{isSendPost()}}>タスクの追加</button>
     </div>
   )
 }

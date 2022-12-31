@@ -8,9 +8,13 @@ const TaskList = ({data,checked,isSendPost}) => {
   useEffect(()=>{
     setChecked(checked)
   },[checked])
+
+
   const tasks = ()=> data.map( (task,i)=>{
     return <li key={i}><Checked/><Task tasks={task}/></li>
   } )
+
+
 
     return (
       <div className={isChecked ? "taskDetailList active":"taskDetailList"}>
