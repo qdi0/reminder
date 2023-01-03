@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import AddTask from "./AddTask";
-import Checked from "./Checked";
+import TaskCheckIcon from "./TaskCheckIcon";
 import Task from "./Task"
 
 const TaskList = ({data,checked,isSendPost}) => {
@@ -11,7 +11,7 @@ const TaskList = ({data,checked,isSendPost}) => {
 
 
   const tasks = ()=> data.map( (task,i)=>{
-    return <li key={i}><Checked/><Task tasks={task}/></li>
+    return <li key={i}><TaskCheckIcon/><Task tasks={task}/></li>
   } )
 
 

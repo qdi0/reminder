@@ -10,6 +10,11 @@ const connection = mysql.createConnection({
   database: 'newapp'
 });
 
+app.use(express.urlencoded({extended: false}));
+// in default express sertting,not process json.
+// this use porps is necessary
+app.use(express.json());
+
 // 確認用
 app.get("/api",(req,res)=>{
   connection.query(
@@ -51,15 +56,20 @@ app.get("/",(req,res)=>{
   )
 });
 
-app.post('/add',(req,res)=>{
+app.post('/add',(req,res,next) =>{
+  let reqParams = req.body;
+  console.log(reqParams);
+  next();
+},
+(req,res)=>{
   connection.query(
-    'insert into tasks (taskDedail,taskListId,userId_task,taskDate) values("addtional",1,1,"2022-04-01")',
+    'insert into forexsampleTaskList (taskDetail,taskLimitDate) values("addtional test","2022-12-01")',
     (err,results,fileds) =>{
       if(err) {
         console.log(err);
         throw err
       }
-      res.json(results);
+      res.send(res.data);
     }
   );
 })
