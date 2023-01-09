@@ -3,11 +3,14 @@ import {Sidebar,Header,TaskList} from './index'
 import axios from 'axios';
 
 const Reminder = () =>{
+  // so not good practicve.but i havent no idea beccause react hooks rule.
+  // i have to look for a solution.
   const[data,setData] = useState(['']);
   const[toggelMenu,setToggelMenu] = useState(true);
-  const[isSendPost,setIsSendPost] = useState(false);
+  const[isSendPost,setIsSendPost] = useState();
   const[currentListID,setCurrentListId] = useState(1);
 
+  // first rendering.parchase task details from DB.
   useEffect(()=>{
     const getDatas = async ()=>{
       const response = await axios.post('/api');
@@ -22,16 +25,24 @@ const Reminder = () =>{
     console.log(toggelMenu)
   }
 
-  const SendNewTask = () =>{
-    setIsSendPost(!isSendPost)
-    console.log('send is' + isSendPost);
-    axios.post('/add')
+  const SendNewTask = (values) =>{
+    let submitData = values;
+    console.log(submitData);
+    axios.post(
+      '/add',submitData)
     .then((res)=>{
-      console.log(res);
-    })
+      console.log("the communication is successful")
+      setIsSendPost(res.data)
+    });
+
+    const getDatas = async ()=>{
+      const response = await axios.post('/api');
+      console.log(response)
+      setData(response.data)
+    }
+    getDatas()
   }
 
-  // const titles = ['title','title2','title3','title3','title4'];
 
   return(
     <>

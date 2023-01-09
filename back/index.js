@@ -10,10 +10,28 @@ const connection = mysql.createConnection({
   database: 'newapp'
 });
 
+app.use(express.urlencoded({extended: false}));
+// in default express sertting,not process json.
+// this use porps is necessary
+app.use(express.json());
+
 // 確認用
+app.get("/api",(req,res)=>{
+  connection.query(
+    'select * from userNameList;',
+    function(err,result,fields){
+      if(err){
+        console.log("異常あり");
+        throw err;
+      }
+      res.json(result);
+    }
+  );
+});
+
 app.post("/api",(req,res)=>{
   connection.query(
-    'SELECT users.userName,users.userId,tasks.taskDedail,tasks.taskListId,tasks.userId_task,tasks.taskDate FROM users join tasks on users.userId = tasks.userId_task',
+    'select * from forexsampleTaskList;',
     function(err,result,fields){
       if(err){
         console.log("異常あり");
@@ -25,26 +43,34 @@ app.post("/api",(req,res)=>{
 });
 
 app.get("/",(req,res)=>{
-  'SELECT * FROM users WHERE  1',
-  function(err,results,fields){
-    if(err) {
-    console.log("!!");
-    throw err;
+  connection.query(
+    'SELECT * FROM userNameList',
+    function(err,results,fields){
+      if(err) {
+      console.log("!!");
+      throw err;
+      }
+      console.log(results[1])
+      res.send(results[0]);
     }
-    console.log(results[0]);
-  }
-  res.send("hello world");
+  )
 });
 
-app.post('/add',(req,res)=>{
+app.post('/add',(req,res,next) =>{
+  let reqParams = req.body;
+  console.log(reqParams);
+  next();
+},
+(req,res)=>{
   connection.query(
-    'insert into tasks (taskDedail,taskListId,userId_task,taskDate) values("addtional",1,1,"2022-04-01")',
+    'insert into forexsampleTaskList (taskDetail,taskLimitDate) values(?,?)',
+    [req.body.taskDetail,req.body.taskDate],
     (err,results,fileds) =>{
       if(err) {
         console.log(err);
         throw err
       }
-      res.json(results);
+      res.send(res.data);
     }
   );
 })
