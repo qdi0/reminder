@@ -63,7 +63,8 @@ app.post('/add',(req,res,next) =>{
 },
 (req,res)=>{
   connection.query(
-    'insert into forexsampleTaskList (taskDetail,taskLimitDate) values("addtional test","2022-12-01")',
+    'insert into forexsampleTaskList (taskDetail,taskLimitDate) values(?,?)',
+    [req.body.taskDetail,req.body.taskDate],
     (err,results,fileds) =>{
       if(err) {
         console.log(err);

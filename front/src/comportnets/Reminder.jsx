@@ -18,22 +18,29 @@ const Reminder = () =>{
       setData(response.data)
     }
     getDatas()
-  },[setIsSendPost])
+  },[isSendPost])
 
   const toggleMenuButton = () =>{
     setToggelMenu(!toggelMenu)
     console.log(toggelMenu)
   }
 
-  const SendNewTask = () =>{
+  const SendNewTask = (values) =>{
+    let submitData = values;
+    console.log(submitData);
     axios.post(
-      '/add',{
-        taskDetail : "test of post communications",
-      })
+      '/add',submitData)
     .then((res)=>{
       console.log("the communication is successful")
       setIsSendPost(res.data)
-    })
+    });
+
+    const getDatas = async ()=>{
+      const response = await axios.post('/api');
+      console.log(response)
+      setData(response.data)
+    }
+    getDatas()
   }
 
 
