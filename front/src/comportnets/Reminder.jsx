@@ -47,7 +47,7 @@ const Reminder = () =>{
   return(
     <>
     <Header toggleMenuButton={toggleMenuButton}/>
-    <Sidebar title={data} checked={toggelMenu}/>
+	<Sidebar title={data} checked={toggelMenu} style='width: 100%;'/>
     <TaskList data={data} checked={toggelMenu} isSendPost={SendNewTask}/>
     </>
   )
